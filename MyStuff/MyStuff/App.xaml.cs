@@ -1,4 +1,4 @@
-﻿using MyStuff.Services;
+﻿
 using MyStuff.Views;
 using System;
 using Xamarin.Forms;
@@ -13,7 +13,7 @@ namespace MyStuff
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            //DependencyService.Register<MockDataStore>();
             //MainPage = new AppShell();
             MainPage = new NavigationPage(new IngresoPage());
         }
