@@ -12,7 +12,7 @@
             <Entry x:Name="TxtTelefono" Placeholder="Teléfono" FontSize="Large" TextColor="White" FontAttributes="Bold" PlaceholderColor="#B2b2b2"/>
             <Entry x:Name="TxtBackUpEmail" Placeholder="Email de Respaldo" FontSize="Large" TextColor="White" FontAttributes="Bold" PlaceholderColor="#B2b2b2"/>
 
-            <Button x:Name="BtnAceptar" Text="Aceptar" BackgroundColor="Green" TextColor="White" FontAttributes="Bold" />
+            <Button x:Name="BtnAceptar" Text="Aceptar" BackgroundColor="Green" TextColor="White" FontAttributes="Bold" Clicked="BtnAceptar_Clicked" />
             <Button x:Name="BtnCancelar" Text="Cancelar" BackgroundColor="Firebrick" TextColor="White" Clicked="BtnCancelar_Clicked"/>
 
         </StackLayout>
