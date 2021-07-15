@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using MyStuff.Models;
 
+using MyStuff.Clases;
+
 using System.Threading.Tasks;
 
 namespace MyStuff.ViewModels
@@ -30,9 +32,16 @@ namespace MyStuff.ViewModels
 
             try
             {
-                MyUser.Username = Pusername;
+                Crypto MiEncriptador = new Crypto();
+
+                string UserNameEncriptado = MiEncriptador.EncriptarPassword(Pusername);
+                //encriptar el email para que no se pueda capturar al momento de enviar el json 
+                //al API
+                string PassEncriptado = MiEncriptador.EncriptarPassword(PuserPassword);
+
+                MyUser.Username = UserNameEncriptado;
                 MyUser.Name = Pname;
-                MyUser.UserPassword = PuserPassword;
+                MyUser.UserPassword = PassEncriptado;
                 MyUser.Phone = Pphone;
                 MyUser.BackupEmail = PbackupEmail;
 
@@ -51,6 +60,41 @@ namespace MyStuff.ViewModels
             }
         
         }
+
+        public async Task<bool> ValidarUsuario(string Pusername, string PuserPassword)
+        {
+            if (IsBusy) return false;
+
+            IsBusy = true;
+
+            try
+            {
+                Crypto MiEncriptador = new Crypto();
+
+                string UserNameEncriptado = MiEncriptador.EncriptarPassword(Pusername);
+                //encriptar el email para que no se pueda capturar al momento de enviar el json 
+                //al API
+                string PassEncriptado = MiEncriptador.EncriptarPassword(PuserPassword);
+
+                MyUser.Username = UserNameEncriptado;
+                MyUser.UserPassword = PassEncriptado;
+               
+                bool R = await MyUser.ValidarUsuario();
+
+                return R;
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+
+        }
+
 
     }
 }

@@ -92,5 +92,36 @@ namespace MyStuff.Models
             return R;
         }
 
+        public async Task<bool> ValidarUsuario()
+        {
+            bool R = false;
+
+            //tomamos la info base (prefijo) de la ruta del API y agregarmos el sufijo correspondiente
+            //para completar  la Ruta de consumo. (paso 1.3.3.1 del ejemplo de secuencia)
+
+            string SufijoRuta = string.Format("users/{0}/{1}", this.Username, this.UserPassword);
+
+            string RutaConsumoAPI = ObjetosGlobales.RutaProduccion + SufijoRuta;
+
+            var client = new RestClient(RutaConsumoAPI);
+
+            var request = new RestRequest(Method.GET);
+
+            //agregamos la info de seguridad 
+            request.AddHeader(ObjetosGlobales.ApiKeyName, ObjetosGlobales.ApiKeyValue);
+            
+            //ejecuta de forma asíncrona la consulta contra el API
+            IRestResponse Respuesta = await client.ExecuteAsync(request);
+
+            HttpStatusCode CodigoRespuesta = Respuesta.StatusCode;
+
+            if (CodigoRespuesta == HttpStatusCode.OK)
+            {
+                R = true;
+            }
+
+            return R;
+        }
+
     }
 }
