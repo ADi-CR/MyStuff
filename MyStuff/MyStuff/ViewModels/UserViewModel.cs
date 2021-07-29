@@ -33,13 +33,11 @@ namespace MyStuff.ViewModels
             try
             {
                 Crypto MiEncriptador = new Crypto();
+                             
+                //Usaremos SHA256 para generar un Hash que NO se pueda descifrar ni por nosotros los programadores
+                string PassEncriptado = MiEncriptador.EncriptarEnUnSentido(PuserPassword);
 
-                string UserNameEncriptado = MiEncriptador.EncriptarPassword(Pusername);
-                //encriptar el email para que no se pueda capturar al momento de enviar el json 
-                //al API
-                string PassEncriptado = MiEncriptador.EncriptarPassword(PuserPassword);
-
-                MyUser.Username = UserNameEncriptado;
+                MyUser.Username = Pusername;
                 MyUser.Name = Pname;
                 MyUser.UserPassword = PassEncriptado;
                 MyUser.Phone = Pphone;
@@ -70,13 +68,10 @@ namespace MyStuff.ViewModels
             try
             {
                 Crypto MiEncriptador = new Crypto();
+                                
+                string PassEncriptado = MiEncriptador.EncriptarEnUnSentido(PuserPassword);
 
-                string UserNameEncriptado = MiEncriptador.EncriptarPassword(Pusername);
-                //encriptar el email para que no se pueda capturar al momento de enviar el json 
-                //al API
-                string PassEncriptado = MiEncriptador.EncriptarPassword(PuserPassword);
-
-                MyUser.Username = UserNameEncriptado;
+                MyUser.Username = Pusername;
                 MyUser.UserPassword = PassEncriptado;
                
                 bool R = await MyUser.ValidarUsuario();

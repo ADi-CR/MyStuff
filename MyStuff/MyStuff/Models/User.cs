@@ -99,10 +99,10 @@ namespace MyStuff.Models
             //tomamos la info base (prefijo) de la ruta del API y agregarmos el sufijo correspondiente
             //para completar  la Ruta de consumo. (paso 1.3.3.1 del ejemplo de secuencia)
 
-            string SufijoRuta = string.Format("users/{0}/{1}", this.Username, this.UserPassword);
-
+            string SufijoRuta = string.Format("Users/ValidateUser2?email={0}&pass={1}", this.Username, this.UserPassword);
+                       
             string RutaConsumoAPI = ObjetosGlobales.RutaProduccion + SufijoRuta;
-
+                      
             var client = new RestClient(RutaConsumoAPI);
 
             var request = new RestRequest(Method.GET);

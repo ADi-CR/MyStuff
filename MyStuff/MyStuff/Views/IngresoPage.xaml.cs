@@ -45,7 +45,9 @@ namespace MyStuff.Views
             if (R)
             {
                 await DisplayAlert(":)", "Usuario Correcto", "OK");
-                //ingresar al app 
+
+                await Navigation.PushAsync(new SelectorDeAccionPage());
+
             }
             else
             {
