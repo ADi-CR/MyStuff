@@ -8,8 +8,8 @@ namespace MyStuff
     {
         //Acá almacenamos la información que permite el consumo de las rutas de producción y pruebas 
         //del API 
-        public static string RutaProduccion = "http://192.168.0.165:45455/api/";
-        public static string RutaPruebas = "http://192.168.0.165:45455/api/";
+        public static string RutaProduccion = "http://192.168.0.150:45455/api/";
+        public static string RutaPruebas = "http://192.168.0.150:45455/api/";
 
         //agregamos la info de seguridad ya sea JWT o ApiKey como en este caso 
         public static string ApiKeyName = "ApiKey";

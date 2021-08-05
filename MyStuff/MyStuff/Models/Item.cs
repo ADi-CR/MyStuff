@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using RestSharp;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Net;
 
 namespace MyStuff.Models
 {
@@ -24,6 +28,8 @@ namespace MyStuff.Models
         public int? SupplierId { get; set; }
         public int UserId { get; set; }
         public int CurrencyId { get; set; }
+        public string DisplayImageUri { get; set; }
+        public string DisplayImageUrilowRes { get; set; }
 
         public virtual Brand Brand { get; set; }
         public virtual Currency Currency { get; set; }
@@ -32,6 +38,43 @@ namespace MyStuff.Models
         public virtual Supplier Supplier { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<Multimedium> Multimedia { get; set; }
+
+        public ObservableCollection<Item> ListarItems()
+        {
+           //esta funcion entrega un listado que es "dibujable" en el UI
+           //El listado tiene forma de Item ya que los atributos deberan ser Vinculables al control
+           //ListView
+                       
+            string SufijoRuta = string.Format("Items/GetItemsList?UserId={0}", UserId);
+
+            string RutaConsumoAPI = ObjetosGlobales.RutaProduccion + SufijoRuta;
+
+            var client = new RestClient(RutaConsumoAPI);
+
+            var request = new RestRequest(Method.GET);
+
+            //agregamos la info de seguridad 
+            request.AddHeader(ObjetosGlobales.ApiKeyName, ObjetosGlobales.ApiKeyValue);
+
+            //ejecuta de forma síncrona la consulta contra el API
+            IRestResponse Respuesta = client.Execute(request);
+
+            HttpStatusCode CodigoRespuesta = Respuesta.StatusCode;
+
+            var ListaItems = JsonConvert.DeserializeObject<ObservableCollection<Item>>(Respuesta.Content);
+
+            if (CodigoRespuesta == HttpStatusCode.OK)
+            {
+                return ListaItems;
+            }
+            else
+            {
+                return null;
+            }
+                      
+        }
+
+
 
     }
 }

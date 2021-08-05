@@ -27,9 +27,9 @@ namespace MyStuff.Views
 
         //}
 
-        private void BtnVerLista_Clicked(object sender, EventArgs e)
+        private async void BtnVerLista_Clicked(object sender, EventArgs e)
         {
-
+            await Navigation.PushAsync(new ListaItemsPage());
         }
 
         private void BtnConfig_Clicked(object sender, EventArgs e)
