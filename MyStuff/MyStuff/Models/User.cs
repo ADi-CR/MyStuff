@@ -92,9 +92,9 @@ namespace MyStuff.Models
             return R;
         }
 
-        public async Task<bool> ValidarUsuario()
+        public async Task<User> ValidarUsuario()
         {
-            bool R = false;
+            User R = new User();
 
             //tomamos la info base (prefijo) de la ruta del API y agregarmos el sufijo correspondiente
             //para completar  la Ruta de consumo. (paso 1.3.3.1 del ejemplo de secuencia)
@@ -117,7 +117,11 @@ namespace MyStuff.Models
 
             if (CodigoRespuesta == HttpStatusCode.OK)
             {
-                R = true;
+                //deserializar el json que entrega el GET
+
+                User MyUser = JsonConvert.DeserializeObject<User>(Respuesta.Content);
+
+                R = MyUser;
             }
 
             return R;

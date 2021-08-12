@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using MyStuff.ViewModels;
+using MyStuff.Models;
 
 namespace MyStuff.Views
 {
@@ -40,14 +41,16 @@ namespace MyStuff.Views
         private async void CmdIngresar(object sender, EventArgs e)
         {
 
-            bool R = await Vm.ValidarUsuario(TxtUsuario.Text.Trim(), TxtPassword.Text.Trim());
+            User R = await Vm.ValidarUsuario(TxtUsuario.Text.Trim(), TxtPassword.Text.Trim());
 
-            if (R)
+            if (R != null && R.UserId > 0)
             {
-                await DisplayAlert(":)", "Usuario Correcto", "OK");
+                //await DisplayAlert(":)", "Usuario Correcto", "OK");
+
+                //Asignar el usuario validado al usuario global 
+                ObjetosGlobales.MiUsuarioGlobal = R;
 
                 await Navigation.PushAsync(new SelectorDeAccionPage());
-
             }
             else
             {

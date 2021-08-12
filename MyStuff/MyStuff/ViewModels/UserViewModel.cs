@@ -59,9 +59,9 @@ namespace MyStuff.ViewModels
         
         }
 
-        public async Task<bool> ValidarUsuario(string Pusername, string PuserPassword)
+        public async Task<User> ValidarUsuario(string Pusername, string PuserPassword)
         {
-            if (IsBusy) return false;
+            if (IsBusy) return null;
 
             IsBusy = true;
 
@@ -74,14 +74,14 @@ namespace MyStuff.ViewModels
                 MyUser.Username = Pusername;
                 MyUser.UserPassword = PassEncriptado;
                
-                bool R = await MyUser.ValidarUsuario();
+                User R = await MyUser.ValidarUsuario();
 
                 return R;
 
             }
             catch (Exception)
             {
-                return false;
+                return null;
             }
             finally
             {
